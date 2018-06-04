@@ -1,0 +1,52 @@
+{% load static %} {% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ET Game</title>
+
+    {% bootstrap_css %}
+</head>
+
+<body>
+    <div id="content" style='margin: 10px'>
+        <div id="game-description">
+            <h3>You have discovered an extra terrestrial being!</h3>
+            <div style="text-align: center">
+                <img id="spaceship-image" src="{% static 'assets/guess_0.jpg' %}" width='640' />
+            </div>
+        </div>
+        <p>They can answer all your questions about the universe, if you can identify their secret word before their spaceship
+            arrives to take them home.</p>
+        <p>You can only guess one letter at a time, and the spaceship will arrive after ten incorrect guesses.</p>
+        <div style='text-align: center' )>
+            <ul id='guessed-letters-list' class='list-inline' style='font-size:72px'></ul>
+        </div>
+        <div id='win-msg' class="alert alert-success" role="alert">
+            You won! You can ask for the answer to anything.&nbsp;
+                <a href='#' class="alert-link play-again-link">Click to play again.</a>
+        </div>
+        <div class="alert alert-danger" id="lose-msg" role="alert">
+            Oh, too bad, the extra terrestial is gone to never return again.
+                <a class="alert-link play-again-link" href="#"> Well, unless you click to play again.</a>
+                <br>
+                <a class="alert-link show-solution-link" href="#">Want to see the solution?</a>&nbsp;
+                <span id="solution"></span>
+        </div>
+        <div id="letter-choices" style="text-align:center">
+            <p>Guesses Left:&nbsp;<span id="guesses-left"></span></p>
+            <div class="btn-group" id="letters-btn-group" role="group">
+                {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+                    <button type="button" class="btn btn-secondary btn-sm letter-btn" data-letter='{{ letter }}' id='letter-btn-{{ letter }}'>{{ letter }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% bootstrap_javascript jquery='full' %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/game-api.js' %}"></script>
+
+</body>
